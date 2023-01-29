@@ -1,16 +1,29 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { connect } from './schemas/index.schemas.js';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const username = process.env.MONGO_USER_NAME;
+const password = process.env.MONGO_PASSWORD;
+
+await mongoose.connect(
+  `mongodb+srv://${username}:${password}@cluster0.a6hm0qv.mongodb.net/HealthRoutine?retryWrites=true&w=majority`
+);
+
+const router = express.Router();
+
 const app = express();
 const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
-connect();
 
-import { Record } from './schemas/records.schemas.js';
-
-const router = express.Router();
+const Record = mongoose.model('Record', {
+  title: String,
+  description: String,
+});
 
 app.post('/records', (req, res) => {
   const record = new Record(req.body);

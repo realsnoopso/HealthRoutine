@@ -34,7 +34,7 @@ export function iscurrentRoutineFinished(info: {
     error(ERROR_MESSAGE.TOTAL_ROUNDS_EMPTY);
     return false;
   }
-  return round >= totalRounds ? true : false;
+  return round + 1 >= totalRounds ? true : false;
 }
 
 export async function getNextRoutine() {
