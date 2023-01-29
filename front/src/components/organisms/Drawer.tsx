@@ -35,9 +35,9 @@ export default function Drawer(props: Drawer) {
               key={`${v.name}-${i}`}
               name={v.name}
               id={v.id}
-              rounds={getRecordsLength(v.id)}
+              rounds={v.round}
               totalRounds={v.totalrounds}
-              _onClick={() => moveToRoutine(v.id, getRecordsLength(v.id) + 1)}
+              _onClick={() => moveToRoutine(v.id, v.round)}
             />
           ))}
         </div>
