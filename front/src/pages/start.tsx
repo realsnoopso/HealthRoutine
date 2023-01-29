@@ -3,34 +3,25 @@ import Cycle from '@src/components/templates/Cycle';
 import { workoutList } from '@src/constants/mockData';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getRoutines } from '@src/apis/routines';
-const Start: NextPage = () => {
+import { getAllRecords } from '@src/apis/index';
+const Start: NextPage = (props: any) => {
+  const { routines } = props;
+  console.log(routines);
   const router = useRouter();
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [round, setRound] = useState(0);
 
-  function getCurrnetIndexAndRound(routineList: any) {
-    const current = { id: '', round: 1, name: '' };
-    current.id =
-      window.localStorage.getItem('current-id') ??
-      routineList?.[0].id ??
-      current.id;
-    current.round = window.localStorage.getItem('current-rounds')
-      ? Number(window.localStorage.getItem('current-round'))
-      : current.round;
-    current.name =
-      routineList?.find((v: any) => v.id === current.id)?.name ?? current.name;
-    return current;
+  async function getCurrnetIndexAndRound() {
+    console.log(await getAllRecords());
+    // const current = window.localStorage.getItem('current') ?? routines?.[0];
+    // return current;
   }
 
   useEffect(() => {
     async function fetch() {
-      const routines = await getRoutines();
-      const current = getCurrnetIndexAndRound(routines);
-      setId(current.id);
-      setName(current.name);
-      setRound(current.round);
+      getCurrnetIndexAndRound();
+      // const { name, round } = routines;
     }
     fetch();
   }, []);
@@ -41,8 +32,8 @@ const Start: NextPage = () => {
 
   return (
     <Cycle btnIcon="play_arrow" _onClick={startNextRound}>
-      <h3>{name}</h3>
-      <h1>{round}세트 시작</h1>
+      {/* <h3>{name}</h3>
+      <h1>{round}세트 시작</h1> */}
     </Cycle>
   );
 };

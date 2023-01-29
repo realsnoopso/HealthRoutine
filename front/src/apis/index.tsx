@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
 import { getRoutines } from '@src/apis/routines';
+import { getAllRecords, getRecords } from './records';
 
 const AXIOS = axios.create({
   baseURL: 'http://localhost:3000',
@@ -27,3 +28,5 @@ export function useFetch(func: FetchFunc, props?: any): any {
   }, [func, props]);
   return response;
 }
+
+export { getRoutines, getAllRecords, getRecords };

@@ -41,8 +41,43 @@ app.get('/routines', (req, res) => {
   });
 });
 
+app.get('/routines/next', (req, res) => {
+  client.query('SELECT * FROM routines', (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error fetching routines');
+    } else {
+      const filteredList = result.rows.filter(
+        (v) => v.totalRounds > getRound(v.id)
+      );
+      client.query('SELECT * FROM records', (err, result) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Error fetching records');
+        } else {
+          const unfinished = filteredList.rows.map((v) => {
+            return { id: v.id, round: getRound(v.id) };
+          });
+          res.send(unfinished[0]);
+        }
+      });
+    }
+  });
+});
+
 app.get('routines/detail', (req, res) => {
   client.query('SELECT * FROM routines', (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error fetching records');
+    } else {
+      res.send(result.rows);
+    }
+  });
+});
+
+app.get('/records', (req, res) => {
+  client.query('SELECT * FROM records', (err, result) => {
     if (err) {
       console.error(err);
       res.status(500).send('Error fetching records');

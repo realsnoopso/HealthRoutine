@@ -11,6 +11,16 @@ export async function getRecords(id: number): Promise<Record[] | null> {
   }
 }
 
+export async function getAllRecords(): Promise<any[] | null> {
+  const result = await fetchData(`/records`, { method: 'get' });
+  if (result?.data) {
+    return result.data;
+  } else {
+    console.log('error');
+    return null;
+  }
+}
+
 export async function setRecords(id: number, record: Record) {
   return fetchData(`/records?id=${id}`, { method: 'post', data: record });
 }
