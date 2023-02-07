@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 connect();
 
 import { Record } from './schemas/records.schemas.js';
+import { Routine } from './schemas/';
 
 const router = express.Router();
 
