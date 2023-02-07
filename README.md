@@ -17,4 +17,8 @@
   - [ ] 운동 횟수 기록 기능 구현
 
 2022/02/07
-- [ ] 백엔드 api typescript 로 작성
+- [ ] 백엔드 typescript 설치
+- [ ] 스키마 작성
+- [ ] routines api 작성
+  - get 할 때 record 목록 불러와서 함께 출력해주기
+- [ ] records api 작성
