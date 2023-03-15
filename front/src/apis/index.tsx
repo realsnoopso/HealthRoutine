@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
 import { getRoutines } from '@src/apis/routines';
-import { getAllRecords, getRecords } from './records';
+import { getAllRecordsFromAPI, getRecordFromAPI } from './records';
 
 const AXIOS = axios.create({
   baseURL: 'http://localhost:3000',
@@ -10,8 +10,8 @@ const AXIOS = axios.create({
 export function fetchData(url: string, config: AxiosRequestConfig) {
   try {
     return AXIOS.request({ url, ...config });
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    console.log(err.message);
   }
 }
 
@@ -29,4 +29,4 @@ export function useFetch(func: FetchFunc, props?: any): any {
   return response;
 }
 
-export { getRoutines, getAllRecords, getRecords };
+export { getRoutines, getAllRecordsFromAPI, getRecordFromAPI };

@@ -26,7 +26,7 @@ export async function getAllRecordsFromAPI(): Promise<Record[] | null> {
 export async function getLastRecordFromAPI(
   routineId: Record['routineId']
 ): Promise<Record | null> {
-  const result = await fetchData(`/records/last?routineId=${routineId}`, {
+  const result = await fetchData(`/record/last?routineId=${routineId}`, {
     method: 'get',
   });
   if (result?.data) {
