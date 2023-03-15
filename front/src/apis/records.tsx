@@ -2,7 +2,7 @@ import { Record } from '@src/types/records';
 import { fetchData } from './index';
 
 export async function getRecords(id: number): Promise<Record[] | null> {
-  const result = await fetchData(`/records?id=${id}`, { method: 'get' });
+  const result = await fetchData(`/record?id=${id}`, { method: 'get' });
   if (result?.data) {
     return result.data;
   } else {
@@ -22,5 +22,5 @@ export async function getAllRecords(): Promise<any[] | null> {
 }
 
 export async function setRecords(id: string, record: Record) {
-  return fetchData(`/records?id=${id}`, { method: 'post', data: record });
+  return fetchData(`/record`, { method: 'post', data: record });
 }

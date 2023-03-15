@@ -12,7 +12,7 @@ export const getAllRecords = async (req: Request, res: Response) => {
 };
 
 export const getRecord = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const id = req.query.id;
   try {
     const result: any = await RecordModel.findOne({ id });
     res.status(200).json(result);
