@@ -22,9 +22,9 @@ export const getRecord = async (req: Request, res: Response) => {
 };
 
 export const getLastRecord = async (req: Request, res: Response) => {
-  const routine_id = req.query.routine_id;
+  const routineId = req.query.routineId;
   try {
-    const data: any = await RecordModel.find({ routine_id });
+    const data: any = await RecordModel.find({ routineId });
     const result = data[data.length - 1];
     res.status(200).json(result);
   } catch (error) {

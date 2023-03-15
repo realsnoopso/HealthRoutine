@@ -1,5 +1,5 @@
 export interface Record {
-  id: string;
+  id?: string;
   routineId: string;
   weight: number;
   count: number;

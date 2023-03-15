@@ -16,7 +16,7 @@ const getRoutine = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     let result: any = await RoutineModel.findOne({ id });
-    // result.records = await RecordModel.find({ routine_id: id });
+
     result['records'] = 'test';
     res.status(200).json(result);
   } catch (error) {
