@@ -1,7 +1,9 @@
 import { Record } from '@src/types/records';
 import { fetchData } from './index';
 
-export async function getRecords(id: Record['id']): Promise<Record | null> {
+export async function getRecordFromAPI(
+  id: Record['id']
+): Promise<Record | null> {
   const result = await fetchData(`/record?id=${id}`, { method: 'get' });
   if (result?.data) {
     return result.data;
@@ -11,7 +13,7 @@ export async function getRecords(id: Record['id']): Promise<Record | null> {
   }
 }
 
-export async function getAllRecords(): Promise<Record[] | null> {
+export async function getAllRecordsFromAPI(): Promise<Record[] | null> {
   const result = await fetchData(`/records`, { method: 'get' });
   if (result?.data) {
     return result.data;
@@ -21,7 +23,7 @@ export async function getAllRecords(): Promise<Record[] | null> {
   }
 }
 
-export async function getLastRecord(
+export async function getLastRecordFromAPI(
   routineId: Record['routineId']
 ): Promise<Record | null> {
   const result = await fetchData(`/records/last?routineId=${routineId}`, {
@@ -35,6 +37,6 @@ export async function getLastRecord(
   }
 }
 
-export async function setRecords(record: Record) {
+export async function postRecordToAPI(record: Record) {
   return fetchData(`/record`, { method: 'post', data: record });
 }
