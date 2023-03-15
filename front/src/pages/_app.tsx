@@ -8,31 +8,30 @@ import { useRouter } from 'next/router';
 import { useState, useRef, useEffect } from 'react';
 import { RecoilRoot } from 'recoil';
 import { getRoutines } from '@src/apis/routines';
-import { getRecords } from '@src/apis/records';
+import { getAllRecords } from '@src/apis/records';
 import { Routine, Record } from '@src/types/index';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { asPath } = useRouter();
   const backdropRef = useRef();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  let routines: Routine[] = [];
+  // let routines: Routine[] = [];
+  const [routines, setRoutines] = useState<Routine[]>([]);
   let records: Record[] = [];
   const [routineName, setRoutineName] = useState('');
 
   async function fetchRoutines() {
     const data = await getRoutines();
-    if (data) routines = data;
+    if (data) setRoutines(data);
   }
 
   async function fetchRecords() {
-    const data = await getRecords();
+    const data = await getAllRecords();
     if (data) records = data;
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      fetchRoutines();
-    }, 0);
+    fetchRoutines();
   }, []);
 
   function closeDrawer() {

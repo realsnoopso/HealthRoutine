@@ -1,5 +1,4 @@
 import { Routine } from '@src/types/routines';
-
 import { fetchData } from './index';
 
 export async function getRoutines(): Promise<Routine[] | null> {

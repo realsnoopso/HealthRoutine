@@ -21,6 +21,6 @@ export async function getAllRecords(): Promise<any[] | null> {
   }
 }
 
-export async function setRecords(id: number, record: Record) {
+export async function setRecords(id: string, record: Record) {
   return fetchData(`/records?id=${id}`, { method: 'post', data: record });
 }

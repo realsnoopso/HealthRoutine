@@ -1,6 +1,7 @@
 export interface Record {
-  id?: number;
-  routine_id?: number;
+  id: string;
+  routineId: string;
   weight: number;
   count: number;
+  isDone: boolean;
 }

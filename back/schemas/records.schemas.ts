@@ -1,21 +1,23 @@
 import { Schema, model } from 'mongoose';
 
-export interface IRecord {
+export interface RecordInterface {
   id: string;
-  roundId: string;
+  routineId: string;
   weight: number;
   count: number;
+  isDone: boolean;
 }
 
-const RecordShema = new Schema<IRecord>({
+const RecordShema = new Schema<RecordInterface>({
   id: { type: String, required: true },
-  roundId: { type: String, required: true },
+  routineId: { type: String, required: true },
   weight: { type: Number, required: true },
   count: { type: Number, required: true },
+  isDone: { type: Boolean, required: true, default: false },
 });
 
-const Record = model<IRecord>('Record', RecordShema);
+const RecordModel = model<RecordInterface>('Record', RecordShema);
 
-export { Record };
+export { RecordModel };
 
 // https://mongoosejs.com/docs/typescript.html

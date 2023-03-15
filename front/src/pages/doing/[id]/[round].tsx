@@ -5,55 +5,41 @@ import { css } from '@emotion/css';
 import { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { unfinishedWorkoutRecords } from '@src/services/unfinishedWorkoutRecords';
-import { setRecords, getRecords } from '@src/apis/records';
-import { getRoutines } from '@src/apis/routines';
+import { setRecords } from '@src/apis/records';
+import { Record } from '@src/types/index';
 
-type Record = {
-  id: number;
-  name: string;
-  weight: number;
-  count: number;
-};
-
-const Doing: NextPage = () => {
+const Doing: NextPage = (props: any) => {
+  const { routines } = props;
   const router = useRouter();
-  const [record, setRecord] = useState<Record | undefined>(undefined);
+  const [id, setId] = useState('');
+  const [record, setRecord] = useState<Record>({
+    id: '',
+    routineId: '',
+    count: 0,
+    weight: 0,
+    isDone: false,
+  });
+  const [isLoading, setIsLoading] = useState(true);
   const [round, setRound] = useState(0);
   const weightInput = useRef();
   const countInput = useRef();
 
-  const loading = !!record;
+  function setRecordInfo() {
+    const query = router.query;
+    if (query.id && query.round) {
+      const id = String(query.id);
+      const round = Number(query.round);
+      setId(id);
+      setRound(round);
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
-    (async () => {
-      // TODO: query에 id, round 없을 때 예외처리 해야함.
-      const id = Number(router.query.id);
-      const round = Number(router.query.round); // 어라라? DB꺼 안쓰고?
-
-      const routines = await getRoutines();
-      if (routines) {
-        const currentName = routines.find((v) => v.id === id)?.name;
-
-        if (!currentName) {
-          throw new Error('존재하지 않는 루틴입니다.');
-        }
-
-        setRecord({
-          id,
-          count: 0,
-          name: currentName,
-          weight: 0,
-        });
-
-        const records = await getRecords(id);
-        if (records) {
-          setRound(records.length);
-        }
-      }
-    })();
+    setRecordInfo();
   }, []);
 
-  if (!loading) {
+  if (!isLoading) {
     return <Cycle btnIcon="done"></Cycle>;
   }
 
@@ -71,7 +57,7 @@ const Doing: NextPage = () => {
 
   return (
     <Cycle btnIcon="done" _onClick={finishRoutine}>
-      <h3>{record.name}</h3>
+      <h3></h3>
       <h1>{round}세트</h1>
       <NumberInput
         ref={weightInput}

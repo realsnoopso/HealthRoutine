@@ -1,20 +1,19 @@
 import { Schema, model } from 'mongoose';
-import { IRecord } from './records.schemas.js';
 
-interface Routine {
+interface RoutineInterface {
   id: string;
   name: string;
-  record: IRecord;
-  count: number;
+  totalRounds: number;
+  isDone: boolean;
 }
 
-const RoutineShema = new Schema<Routine>({
+const RoutineShema = new Schema<RoutineInterface>({
   id: { type: String, required: true },
   name: { type: String, required: true },
-  record: String,
-  count: { type: Number, required: true },
+  totalRounds: { type: Number, required: true },
+  isDone: { type: Boolean, required: true, default: false },
 });
 
-const Routine = model<Routine>('Routine', RoutineShema);
+const RoutineModel = model<RoutineInterface>('Routine', RoutineShema);
 
-export { Routine };
+export { RoutineModel };
